@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+<!-- {% block css %}<link rel="stylesheet" type="" href=" {{url_for('static', filename='css/book.css')}} "> {% endblock %} -->
+{% block content %} 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="margin-top: 50px;">
+        <div class="card-header">
+          <h2> {{book.Title}}</h2>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            
+            <li class="list-group-item">Author: <h3> {{book.Author}}</h3></li>
+            <li class="list-group-item">Published_Year: <h3> {{book.Year}}</h3></li>
+            <li class="list-group-item">Average_Rating: <h3> {{average_rating}}</h3></li>
+            <li class="list-group-item">Rating: <h3> {{work_ratings_count}}</h3></li>
+          </ul>
+          <form action="" method="POST">
+
+            <div class="form-group">
+              
+              <h3>Rate the Book</h3>
+              <input type="radio" name="rating" value="1" required> 1
+              <input type="radio" name="rating" value="2" required> 2
+              <input type="radio" name="rating" value="3" required> 3
+              <input type="radio" name="rating" value="4" required> 4
+              <input type="radio" name="rating" value="5" required> 5
+            </div>
+            <div class="form-group">
+              <h3>Comments </h3>
+              <textarea name="comments" cols="40" rows="5" placeholder="Tell us what you liked and/or did not like" required>
+              </textarea>
+            </div>
+            <button  class="btn btn-info" value="Submit" type="submit">submit</button> 
+          </form>
+      </div>
+    </div>
+  </div>
+  <div  class='row'>
+    {% if not Reviews %}
+    <div class="list-group-item text-center">
+      No reviews available
+    </div>
+  {% else %}
+  {% for review in Reviews %}
+  <div class="border w-100">
+    <div class="media w-100">
+      <img class="mr-3 rounded-circle" style="max-height: 75px;" src="https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png">
+      <div class="media-body">
+        <h5 class="mt-0">{{review['user_id']}}</h5>
+        {{review['review']}}
+      </div>
+      <div class="ml-5 px-5 text-left text-muted">⭐{{review['rating']}}</div>
+    </div>
+    </div>
+  {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

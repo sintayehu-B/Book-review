@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+<!-- {% block style %}
+    
+{% endblock %} -->
+
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}?q=9">    
+
+    <div class="container">
+      
+        
+            <header>
+                <h4 class="text-center">Search for your favorite book :</h4>
+            </header>
+
+            <section>
+                <form method="POST">
+                    <div class="form-group ">
+                        <input class="form-control" type="text" placeholder="Search with isbn, title or even author" name="search" required>
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form>
+            </section>
+            <br>
+            <div>
+                <ul>
+                    {% if no_books %}
+                        <h4 class="text-danger text-center">No matching result!</h4>
+                    {% else %}
+                        {% for book in books %}
+                            <li class="list-group-item "><a class='no-wrap' href="/book_detail?isbn={{book['isbn']}}">{{book['isbn']}}, {{book['title']}}, {{ book['author']}}.</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+    </div>
+{% endblock %}
